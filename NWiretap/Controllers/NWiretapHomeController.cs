@@ -15,10 +15,9 @@ namespace NWiretap.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var instruments = GetType().Assembly.GetTypes().Where(a => (typeof (IInstrument).IsAssignableFrom(a)) && a.IsClass);
+            var instruments = InstrumentTracker.Instruments;
 
-
-            return null;
+            return View(instruments);
         }
     }
 }

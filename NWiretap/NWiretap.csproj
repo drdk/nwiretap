@@ -43,7 +43,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\NWiretapHomeController.cs" />
-    <Compile Include="Controllers\NWiretapIntegrator.cs" />
+    <Compile Include="Instumentation\ICounter.cs" />
+    <Compile Include="Measurement\InstrumentTracker.cs" />
+    <Compile Include="Measurement\VisualizationHandlerAttribute.cs" />
+    <Compile Include="NWiretapIntegrator.cs" />
     <Compile Include="Instumentation\Counter.cs" />
     <Compile Include="Measurement\IFrequencyInstrument.cs" />
     <Compile Include="Measurement\IInstrument.cs" />

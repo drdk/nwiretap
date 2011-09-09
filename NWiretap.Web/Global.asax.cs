@@ -21,7 +21,7 @@ namespace NWiretap.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            NWiretap.Controllers.NWiretapIntegrator.RegisterNWirewapRoutes(routes, "bla/");
+            NWiretapIntegrator.RegisterNWirewapRoutes(routes, "bla/");
 
             routes.MapRoute(
                 "Default", // Route name
