@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWiretap", "NWiretap\NWiretap.csproj", "{1155D92A-B8CE-45C1-B7D5-BE414280EBB7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NWiretap.Web", "NWiretap.Web\NWiretap.Web.csproj", "{F86E9AC3-DB53-48FB-A901-C0403E74006D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1155D92A-B8CE-45C1-B7D5-BE414280EBB7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1155D92A-B8CE-45C1-B7D5-BE414280EBB7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1155D92A-B8CE-45C1-B7D5-BE414280EBB7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1155D92A-B8CE-45C1-B7D5-BE414280EBB7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F86E9AC3-DB53-48FB-A901-C0403E74006D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F86E9AC3-DB53-48FB-A901-C0403E74006D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F86E9AC3-DB53-48FB-A901-C0403E74006D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F86E9AC3-DB53-48FB-A901-C0403E74006D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
