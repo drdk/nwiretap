@@ -6,7 +6,6 @@ using NWiretap.Measurement;
 
 namespace NWiretap.Instumentation
 {
-    [VisualizationHandler("NWiretapCounter")]
     public class Counter : IInstrument, ICounter, IFrequencyInstrument, ISummableInstrument, IDisposable
     {
         public static ICounter Create(string counterName, int sampleLengthMs)
@@ -61,6 +60,11 @@ namespace NWiretap.Instumentation
         public string InstrumentName
         {
             get { return CounterName; }
+        }
+
+        public string InstrumentVisualizer
+        {
+            get { return "NWiretapCounter"; }
         }
 
         public void Dispose()

@@ -8,5 +8,6 @@ namespace NWiretap.Measurement
     public interface IInstrument
     {
         string InstrumentName { get; }
+        string InstrumentVisualizer { get; }
     }
 }
