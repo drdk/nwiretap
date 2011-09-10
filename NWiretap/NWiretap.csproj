@@ -42,18 +42,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controllers\NWiretapCounterController.cs" />
     <Compile Include="Controllers\NWiretapHomeController.cs" />
+    <Compile Include="Controllers\NWiretapInstrumentController.cs" />
     <Compile Include="Instumentation\ICounter.cs" />
     <Compile Include="Measurement\InstrumentTracker.cs" />
     <Compile Include="Measurement\VisualizationHandlerAttribute.cs" />
-    <Compile Include="NWiretapIntegrator.cs" />
     <Compile Include="Instumentation\Counter.cs" />
     <Compile Include="Measurement\IFrequencyInstrument.cs" />
     <Compile Include="Measurement\IInstrument.cs" />
     <Compile Include="Measurement\ISummableInstrument.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Routes.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

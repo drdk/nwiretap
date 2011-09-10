@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using NWiretap.Measurement;
 
 namespace NWiretap.Controllers
@@ -17,7 +13,7 @@ namespace NWiretap.Controllers
         {
             var instruments = InstrumentTracker.Instruments;
 
-            return View(instruments);
+            return Json(instruments, JsonRequestBehavior.AllowGet);
         }
     }
 }
