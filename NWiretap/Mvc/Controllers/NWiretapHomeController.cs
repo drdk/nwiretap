@@ -1,5 +1,6 @@
-﻿using System.Web.Mvc;
-using NWiretap.Measurement;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace NWiretap.Mvc.Controllers
 {
@@ -11,9 +12,14 @@ namespace NWiretap.Mvc.Controllers
         /// <returns></returns>
         public ActionResult Index()
         {
-            var instruments = InstrumentTracker.Instruments;
-            
-            return View(instruments);
+            var instruments = InstrumentTracker.Instruments.Select(a => new Model.Instrument
+                                                                                    {
+                                                                                        InstrumentID = a.InstrumentID,
+                                                                                        InstrumentIdent = a.Instrument.InstrumentIdent,
+                                                                                        Measurement = a.Instrument.GetMeasurement()
+                                                                                    });
+
+            return Json(instruments, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -5,9 +5,8 @@ using System.Text;
 
 namespace NWiretap.Measurement
 {
-    public interface IInstrument
+    public abstract class InstrumentMeasurementBase
     {
-        string InstrumentIdent { get; }
-        InstrumentMeasurementBase GetMeasurement();
+        public abstract string InstrumentType { get; }
     }
 }

@@ -7,7 +7,7 @@ namespace NWiretap.Mvc
         public override void RegisterArea(AreaRegistrationContext context)
         {
             //Register our hosting provider
-            System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new NWiretapResourceProvider());
+            //System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new NWiretapResourceProvider());
 
             //Map routes
             context.MapRoute(
