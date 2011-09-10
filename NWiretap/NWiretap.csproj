@@ -31,6 +31,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
@@ -40,8 +42,10 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssemblyResourceProvider.cs" />
     <Compile Include="Controllers\NWiretapCounterController.cs" />
     <Compile Include="Controllers\NWiretapHomeController.cs" />
     <Compile Include="Controllers\NWiretapInstrumentController.cs" />
@@ -57,6 +61,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\NWiretapHome\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

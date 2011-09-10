@@ -12,8 +12,8 @@ namespace NWiretap.Controllers
         public ActionResult Index()
         {
             var instruments = InstrumentTracker.Instruments;
-
-            return Json(instruments, JsonRequestBehavior.AllowGet);
+            
+            return View("~/Plugin/NWiretap.dll/NWiretap.Views.NWiretapHome.Index.cshtml");
         }
     }
 }

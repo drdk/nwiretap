@@ -10,7 +10,7 @@ namespace NWiretap.Controllers
     {
         public ActionResult Index()
         {
-            return Json();
+            return null;
         }
     }
 }

@@ -1,11 +1,15 @@
 ﻿using System.Web.Mvc;
 
-namespace NWiretap.WebVisualizer
+namespace NWiretap
 {
     public class Routes : AreaRegistration
     {
         public override void RegisterArea(AreaRegistrationContext context)
         {
+            //Register our hosting provider
+            System.Web.Hosting.HostingEnvironment.RegisterVirtualPathProvider(new AssemblyResourceProvider());
+
+            //Map routes
             context.MapRoute(
                 "NWireTap_defaultRoute",
                 "nwiretap/{controller}/{action}/{id}",
