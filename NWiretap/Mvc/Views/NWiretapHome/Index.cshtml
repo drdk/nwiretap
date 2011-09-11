@@ -1,9 +1,0 @@
-﻿@inherits System.Web.Mvc.WebViewPage<IEnumerable<NWiretap.Measurement.TrackedInstrument>>
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_NWiretapLayout.cshtml";
-}
-@foreach (var trackedInstrument in Model)
-{
-    @Html.Action("Index", trackedInstrument.Instrument.InstrumentVisualizer)
-}
