@@ -1,7 +1,7 @@
-#NWiretap
-**A set of simple instruments to track whats going on inside your .NET applications**
+#About nwiretap
+**NWiretap is a set of simple tools to monitor points of interest inside your .NET Applications**
 
-A primitive example of usage from an ASP.NET MVC Controller
+Create a class with a set of instruments:
 
 ```c#
 public class HomeController : Controller
