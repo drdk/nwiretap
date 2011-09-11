@@ -24,7 +24,7 @@ public class HomeController : Controller
 }
 ```
 
-The measurements can then be obtained as JSON by calling the /nwiretap (this url is configurable) on your application:
+The measurements can then be obtained as JSON by acessing /nwiretap (this url is configurable) on your application:
 
 ```js
 [
