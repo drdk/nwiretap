@@ -1,75 +1,41 @@
 body
 {
-    font-size: .85em;
-    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
-    color: #232323;
-    background-color: #fff;
+    margin:0px;
+    background-color:#EEEEEE;
+    font-family:Verdana;
+    font-size:12px;
 }
 
-header,
-footer,
-nav,
-section {
-    display: block;
+h1 
+{
+    margin:0px;
+    padding:4px;
+    background-color:#9CB6FF;
+    color:#173380;
 }
 
-/* Styles for basic forms
------------------------------------------------------------*/
+h2 
+{
+    margin:0px;
+    padding:4px;
+}
+
+div.mainContent
+{
+    padding:4px;
+    width:99%;
+}
+
+div.instrument-group 
+{
+    width:49%;
+    overflow:hidden;
+    float:left;
+}
 
 fieldset 
 {
-    border:1px solid #ddd;
-    padding:0 1.4em 1.4em 1.4em;
-    margin:0 0 1.5em 0;
-}
-
-legend 
-{
-    font-size:1.2em;
-    font-weight: bold;
-}
-
-textarea 
-{
-    min-height: 75px;
-}
-
-.editor-label 
-{
-    margin: 1em 0 0 0;
-}
-
-.editor-field 
-{
-    margin:0.5em 0 0 0;
-}
-
-
-/* Styles for validation helpers
------------------------------------------------------------*/
-.field-validation-error
-{
-    color: #ff0000;
-}
-
-.field-validation-valid
-{
-    display: none;
-}
-
-.input-validation-error
-{
-    border: 1px solid #ff0000;
-    background-color: #ffeeee;
-}
-
-.validation-summary-errors
-{
-    font-weight: bold;
-    color: #ff0000;
-}
-
-.validation-summary-valid
-{
-    display: none;
+    float:left;
+    width:250px;
+    height:120px;
 }

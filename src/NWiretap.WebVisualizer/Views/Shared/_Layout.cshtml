@@ -2,9 +2,49 @@
 <html>
 <head>
     <title>@ViewBag.Title</title>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tmpl.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/nwiretap-visualizer.js")"></script>
+    <link rel="Stylesheet" href="@Url.Content("~/Content/site.css")" />
+
+    <script type="text/x-jquery-tmpl" id="template-server">
+        <div class="instrument-group">
+            <h2>${name}</h2>
+            {{each data}}
+                <fieldset>
+                    <legend>${$value.InstrumentIdent}</legend>
+                    <div id="instrument-${serverIndex}-${$value.InstrumentID}">
+                        {{if $value.InstrumentType == "Meter"}}
+                            {{tmpl($value) "#template-Meter"}}
+                        {{else $value.InstrumentType == "InvocationTimer"}}
+                            {{tmpl($value) "#template-InvocationTimer"}}
+                        {{else}}
+                            {{tmpl($value) "#template-Logger"}}
+                        {{/if}}
+                    </div>
+                </fieldset>
+            {{/each}}
+        </div>
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="template-Meter">
+        Ticks: <span class="ticks"></span><br />
+        Current frequency: <span class="frequency"></span> Hz<br />
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="template-InvocationTimer">
+        Invocations: <span class="ticks"></span><br />
+        Current frequency: <span class="frequency"></span> Hz<br />
+        <div class="graph" />
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="template-Logger">
+        Logger
+    </script>
 </head>
 <body>
-    <div>
+    <h1>NWiretap Visualizer</h1>
+    <div class="mainContent" id="main-content">
         @RenderBody()
     </div>
 </body>

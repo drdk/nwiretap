@@ -12,9 +12,9 @@ namespace NWiretap.WebVisualizer.Controllers
 {
     public class HomeController : Controller
     {
-        private static readonly IMeter Ticker = Instrument.Ticker("Some counter", 3000);
-        private static readonly IInvocationTimer Timer = Instrument.Timer("Some timer", 3000);
-        private static readonly ILogger Logger = Instrument.Logger("SomeLogger", 20);
+        private static readonly IMeter Ticker = Instrument.Ticker("Index page hit counter", 3000);
+        private static readonly IInvocationTimer Timer = Instrument.Timer("Database fetch timer", 3000);
+        private static readonly ILogger Logger = Instrument.Logger("Log output", 20);
         
         public ActionResult Index()
         {
