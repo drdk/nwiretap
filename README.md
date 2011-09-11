@@ -2,6 +2,7 @@
 **A set of simple instruments to track whats going on inside your .NET applications**
 
 To create a Meter-type instrument:
+
 ```js
 //Create a Meter with the name "Some counter" and a sample size of 3000ms
 private static readonly IMeter Ticker = Instrument.Ticker("Some counter", 3000); //These should be kept alive as long as possible
