@@ -28,55 +28,51 @@ The measurements can then be obtained as JSON by calling the /nwiretap (this url
 
 ```js
 [
--{
-InstrumentID: 0
-InstrumentIdent: "Some counter"
-InstrumentType: "Meter"
--Measurement: {
-CurrentFrequency: 1
-Ticks: 4
-}
-}
--{
-InstrumentID: 1
-InstrumentIdent: "Some timer"
-InstrumentType: "InvocationTimer"
--Measurement: {
--Samples: [
--{
-AverageInvokationTimeMs: 299
-MaxInvocationTimeMs: 299
-MinInvocationTimeMs: 299
-}
-]
-CurrentFrequency: 1
-Ticks: 4
-}
-}
--{
-InstrumentID: 2
-InstrumentIdent: "SomeLogger"
-InstrumentType: "Logger"
--Measurement: {
--Entries: [
--{
-Line: "Index was hit"
-Created: "2011-09-11T17:01:23.6554291+02:00"
-}
--{
-Line: "Index was hit"
-Created: "2011-09-11T17:01:23.1383995+02:00"
-}
--{
-Line: "Index was hit"
-Created: "2011-09-11T17:01:22.5263645+02:00"
-}
--{
-Line: "Index was hit"
-Created: "2011-09-11T17:01:20.6772587+02:00"
-}
-]
-}
-}
+   {
+      "InstrumentID":0,
+      "InstrumentIdent":"Some counter",
+      "InstrumentType":"Meter",
+      "Measurement":{
+         "CurrentFrequency":0.6666667,
+         "Ticks":2
+      }
+   },
+   {
+      "InstrumentID":1,
+      "InstrumentIdent":"Some timer",
+      "InstrumentType":"InvocationTimer",
+      "Measurement":{
+         "Samples":[
+            {
+               "AverageInvokationTimeMs":299,
+               "MaxInvocationTimeMs":299,
+               "MinInvocationTimeMs":299
+            },
+            {
+               //1 minute worth of 3 second samples
+            }
+         ],
+         "CurrentFrequency":0.6666667,
+         "Ticks":2
+      }
+   },
+   {
+      "InstrumentID":2,
+      "InstrumentIdent":"SomeLogger",
+      "InstrumentType":"Logger",
+      "Measurement":{
+         "Entries":[
+            {
+               "Line":"Index was hit",
+               "Created":"2011-09-11T17:04:44.6569257+02:00"
+            },
+            {
+               "Line":"Index was hit",
+               "Created":"2011-09-11T17:04:43.1678405+02:00"
+            }
+            //Last 2 log entres
+         ]
+      }
+   }
 ]
 ```
