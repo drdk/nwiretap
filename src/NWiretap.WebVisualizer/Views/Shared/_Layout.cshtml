@@ -27,8 +27,10 @@
                                     {{tmpl($value) "#template-Meter"}}
                                 {{else $value.InstrumentType == "InvocationTimer"}}
                                     {{tmpl($value) "#template-InvocationTimer"}}
-                                {{else}}
+                                {{else $value.InstrumentType == "Logger"}}
                                     {{tmpl($value) "#template-Logger"}}
+                                {{else}}
+                                    {{tmpl($value) "#template-Gauge"}}
                                 {{/if}}
                             </div>
                         </fieldset>
@@ -51,6 +53,11 @@
 
     <script type="text/x-jquery-tmpl" id="template-Logger">
         <div class="logger-text">
+        </div>
+    </script>
+
+    <script type="text/x-jquery-tmpl" id="template-Gauge">
+        <div class="gauge-text">
         </div>
     </script>
 </head>

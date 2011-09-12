@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using NWiretap.Instruments.Gauge;
 
 namespace NWiretap.WebVisualizer
 {
@@ -12,6 +13,16 @@ namespace NWiretap.WebVisualizer
 
     public class MvcApplication : System.Web.HttpApplication
     {
+        public static bool IsSomething = false;
+        public static bool IsSomethingElse = true;
+        public static int SomeInt;
+
+        private static readonly IGauge SettingsGauge = Instrument.Gauge(typeof (MvcApplication), "Application settings", "Running settings", () => new {
+                                                                                                                                                           IsSomething,
+                                                                                                                                                           IsSomethingElse,
+                                                                                                                                                           SomeInt = SomeInt++
+                                                                                                                                                       });
+
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());

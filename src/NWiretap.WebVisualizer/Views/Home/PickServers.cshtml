@@ -1,0 +1,19 @@
+﻿@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PickServers</title>
+</head>
+<body>
+    <div>
+        Please enter the servers to monitor in format servername:url[linebreak]:<br />
+        @using (var form = Html.BeginForm("Index", "Home", FormMethod.Get))
+        {
+            @Html.TextArea("id", "local 1:/nwiretap\r\nlocal 2:/nwiretap", new { style = "width:500px;height:200px" })<br />
+            <input type="submit" name="ok" value="ok" />
+        }
+    </div>
+</body>
+</html>

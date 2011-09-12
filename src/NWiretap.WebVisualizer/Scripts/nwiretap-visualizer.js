@@ -1,32 +1,5 @@
 ﻿$().ready(function () {
-    var servers = [
-        /*{
-            name: "VALGOL 10",
-            url: "http://172.18.64.120/nyheder/valgol/nwiretap"
-        },
-        {
-            name: "VALGOL 11",
-            url: "http://172.18.64.121/nyheder/valgol/nwiretap"
-        }
-        ,
-        {
-            name: "VALGOL 12",
-            url: "http://172.18.64.122/nyheder/valgol/nwiretap"
-        }
-        ,
-        {
-            name: "VALGOL 13",
-            url: "http://172.18.64.123/nyheder/valgol/nwiretap"
-        }*/
-        {
-        name: "S1",
-        url: "/nwiretap"
-    },
-    {
-        name: "S2",
-        url: "/nwiretap"
-    }
-    ];
+    var servers = serverList;
 
     var dataSets = getData(servers);
 
@@ -80,6 +53,9 @@ function updateData(dataSets) {
                 else if (instrumentData.InstrumentType == "Logger") {
                     updateLogger(instrument, instrumentData);
                 }
+                else if (instrumentData.InstrumentType == "Gauge") {
+                    updateGauge(instrument, instrumentData);
+                }
             });
 
         });
@@ -118,5 +94,14 @@ function updateLogger(instrumentDomId, data) {
 
     $.each(data.Measurement.Entries, function (index, entry) {
         loggerDom.append("<span>" + entry.Created + ": " + entry.Line + "</span><br />");
+    });
+}
+
+function updateGauge(instrumentDomId, data) {
+    var loggerDom = $(instrumentDomId + " .gauge-text")[0];
+    loggerDom = $(loggerDom).empty();
+
+    $.each(data.Measurement.Gauge, function (key, value) {
+        loggerDom.append("<span>" + key + ": " + value + "</span><br />");
     });
 }

@@ -62,10 +62,21 @@ fieldset.Meter
     height:150px;
 }
 
+fieldset.Gauge
+{
+    height:150px;
+}
+
 fieldset.Logger
 {
     height:160px;
     width:528px;
+
+}
+
+div.logger-text 
+{
+    height:150px;
     overflow-x: hidden; 
     overflow-y: scroll; 
 }
