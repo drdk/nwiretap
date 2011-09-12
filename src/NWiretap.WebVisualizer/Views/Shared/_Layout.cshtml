@@ -14,21 +14,26 @@
     <link rel="Stylesheet" href="@Url.Content("~/Content/site.css")" />
 
     <script type="text/x-jquery-tmpl" id="template-server">
-        <div class="instrument-group">
+        <div class="instrument-server">
             <h2>${name}</h2>
             {{each data}}
-                <fieldset>
-                    <legend>${$value.InstrumentIdent}</legend>
-                    <div id="instrument-${serverIndex}-${$value.InstrumentID}">
-                        {{if $value.InstrumentType == "Meter"}}
-                            {{tmpl($value) "#template-Meter"}}
-                        {{else $value.InstrumentType == "InvocationTimer"}}
-                            {{tmpl($value) "#template-InvocationTimer"}}
-                        {{else}}
-                            {{tmpl($value) "#template-Logger"}}
-                        {{/if}}
-                    </div>
-                </fieldset>
+                <div class="instrument-group">
+                    <h3>${$value.GroupName}</h3>
+                    {{each $value.Instruments}}
+                        <fieldset class="${$value.InstrumentType}">
+                            <legend><span>${$value.ImplementorType} - ${$value.InstrumentIdent}</span></legend>
+                            <div id="instrument-${serverIndex}-${$value.InstrumentID}">
+                                {{if $value.InstrumentType == "Meter"}}
+                                    {{tmpl($value) "#template-Meter"}}
+                                {{else $value.InstrumentType == "InvocationTimer"}}
+                                    {{tmpl($value) "#template-InvocationTimer"}}
+                                {{else}}
+                                    {{tmpl($value) "#template-Logger"}}
+                                {{/if}}
+                            </div>
+                        </fieldset>
+                    {{/each}}
+                </div>
             {{/each}}
         </div>
     </script>
@@ -45,7 +50,8 @@
     </script>
 
     <script type="text/x-jquery-tmpl" id="template-Logger">
-        Logger
+        <div class="logger-text">
+        </div>
     </script>
 </head>
 <body>

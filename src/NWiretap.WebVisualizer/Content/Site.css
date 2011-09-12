@@ -20,22 +20,52 @@ h2
     padding:4px;
 }
 
+h3 
+{
+    margin:0px;
+    padding:4px;
+}
+
 div.mainContent
 {
     padding:4px;
     width:99%;
 }
 
-div.instrument-group 
+div.instrument-server 
 {
     width:49%;
     overflow:hidden;
     float:left;
 }
 
-fieldset 
+div.instrument-group 
+{
+    width:100%;
+    overflow:hidden;
+    float:none;
+}
+
+fieldset
 {
     float:left;
     width:250px;
-    height:120px;
+}
+
+fieldset.InvocationTimer
+{
+    height:150px;
+}
+
+fieldset.Meter
+{
+    height:150px;
+}
+
+fieldset.Logger
+{
+    height:160px;
+    width:528px;
+    overflow-x: hidden; 
+    overflow-y: scroll; 
 }

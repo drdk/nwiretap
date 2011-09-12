@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NWiretap.Instruments.Ticker;
+using NWiretap.Instruments.Meter;
 
 namespace NWiretap.Instruments.Timer
 {

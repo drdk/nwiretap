@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using NWiretap.Measurement;
+using NWiretap.Instruments;
 
 namespace NWiretap
 {

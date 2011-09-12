@@ -1,6 +1,6 @@
 ﻿$().ready(function () {
     var servers = [
-        {
+        /*{
             name: "VALGOL 10",
             url: "http://172.18.64.120/nyheder/valgol/nwiretap"
         },
@@ -17,7 +17,15 @@
         {
             name: "VALGOL 13",
             url: "http://172.18.64.123/nyheder/valgol/nwiretap"
-        }
+        }*/
+        {
+        name: "S1",
+        url: "/nwiretap"
+    },
+    {
+        name: "S2",
+        url: "/nwiretap"
+    }
     ];
 
     var dataSets = getData(servers);
@@ -59,15 +67,21 @@ function initialize(dataSets) {
 
 function updateData(dataSets) {
     $.each(dataSets, function (serverIndex, dataSet) {
-        $.each(dataSet.data, function (instrumentIndex, data) {
-            var instrument = "#instrument-" + dataSet.serverIndex + "-" + instrumentIndex;
-            var container = $(instrument);
-            if (data.InstrumentType == "Meter") {
-                updateMeter(instrument, data);
-            }
-            else if (data.InstrumentType == "InvocationTimer") {
-                updateInvocationTimer(instrument, data);
-            }
+        $.each(dataSet.data, function (instrumentGroupIndex, data) {
+            $.each(data.Instruments, function (instrumentIndex, instrumentData) {
+                var instrument = "#instrument-" + dataSet.serverIndex + "-" + instrumentData.InstrumentID;
+                var container = $(instrument);
+                if (instrumentData.InstrumentType == "Meter") {
+                    updateMeter(instrument, instrumentData);
+                }
+                else if (instrumentData.InstrumentType == "InvocationTimer") {
+                    updateInvocationTimer(instrument, instrumentData);
+                }
+                else if (instrumentData.InstrumentType == "Logger") {
+                    updateLogger(instrument, instrumentData);
+                }
+            });
+
         });
     });
 }
@@ -95,5 +109,14 @@ function updateInvocationTimer(instrumentDomId, data) {
         xPlots.push(index);
     });
 
-    r.g.linechart(20, 0, 230, 75, xPlots, yPlots, { axis: "0 0 1 1", smooth: true, shade: true });
+    r.g.linechart(20, 0, 230, 95, xPlots, yPlots, { axis: "0 0 1 1", smooth: true, shade: true });
+}
+
+function updateLogger(instrumentDomId, data) {
+    var loggerDom = $(instrumentDomId + " .logger-text")[0];
+    loggerDom = $(loggerDom).empty();
+
+    $.each(data.Measurement.Entries, function (index, entry) {
+        loggerDom.append("<span>" + entry.Created + ": " + entry.Line + "</span><br />");
+    });
 }

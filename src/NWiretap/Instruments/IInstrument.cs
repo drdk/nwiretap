@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-namespace NWiretap.Measurement
+namespace NWiretap.Instruments
 {
     public interface IInstrument
     {
+        Type OwningType { get; }
+        string InstrumentGroup { get; }
         string InstrumentIdent { get; }
         string InstrumentType { get; }
         InstrumentMeasurementBase GetMeasurement();

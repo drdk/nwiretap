@@ -20,10 +20,12 @@ namespace NWiretap.Mvc.Controllers
                                                                                         InstrumentID = a.InstrumentID,
                                                                                         InstrumentIdent = a.Instrument.InstrumentIdent,
                                                                                         InstrumentType = a.Instrument.InstrumentType,
+                                                                                        ImplementorType = a.Instrument.OwningType.Name,
+                                                                                        InstrumentGroup = a.Instrument.InstrumentGroup,
                                                                                         Measurement = a.Instrument.GetMeasurement()
                                                                                     });
 
-            return Json(instruments, JsonRequestBehavior.AllowGet);
+            return Json(instruments.GroupBy(a => a.InstrumentGroup).Select(a => new { GroupName = a.Key, Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent) }), JsonRequestBehavior.AllowGet);
         }
     }
 

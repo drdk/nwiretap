@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Threading;
-using NWiretap.Measurement;
 
-namespace NWiretap.Instruments.Ticker
+namespace NWiretap.Instruments.Meter
 {
     public class Meter : InstrumentBase, IMeter, IDisposable
     {
@@ -16,7 +15,7 @@ namespace NWiretap.Instruments.Ticker
         private readonly System.Threading.Timer _sampleTimer;
         private float _currentFrequency;
 
-        public Meter(string counterName, int sampleLengthMs) : base(counterName)
+        public Meter(Type owningType, string groupName, string counterName, int sampleLengthMs) : base(owningType, groupName, counterName)
         {
             CounterName = counterName;
             SampleLengthMs = sampleLengthMs;

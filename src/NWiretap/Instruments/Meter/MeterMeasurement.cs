@@ -1,6 +1,4 @@
-﻿using NWiretap.Measurement;
-
-namespace NWiretap.Instruments.Ticker
+﻿namespace NWiretap.Instruments.Meter
 {
     public class MeterMeasurement : InstrumentMeasurementBase
     {

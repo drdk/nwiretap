@@ -6,17 +6,14 @@ Create a class with a set of instruments:
 ```c#
 public class HomeController : Controller
 {
-    private static readonly IMeter Ticker = Instrument.Ticker("Some counter", 3000);
-    private static readonly IInvocationTimer Timer = Instrument.Timer("Some timer", 3000);
-    private static readonly ILogger Logger = Instrument.Logger("SomeLogger", 20);
+    private static readonly IMeter Meter = Instrument.Meter(typeof(HomeController), "General performance", "Index hits", 3000);
+    private static readonly IInvocationTimer Timer = Instrument.Timer(typeof(HomeController), "General performance", "Database fetch", 3000);
+    private static readonly ILogger Logger = Instrument.Logger(typeof(HomeController), "General logging", "Log output", 20);
         
     public ActionResult Index()
     {
-        Ticker.Tick();
-        var s = Timer.Time(() =>
-                               {
-                                   return Database.GetSomeStuff();
-                               });
+        Meter.Tick();
+        var s = Timer.Time(() => GetStrings());
 
         Logger.Log("Index was hit");
         return View();
@@ -29,50 +26,88 @@ The measurements can then be obtained as JSON by acessing /nwiretap (this url is
 ```js
 [
    {
-      "InstrumentID":0,
-      "InstrumentIdent":"Some counter",
-      "InstrumentType":"Meter",
-      "Measurement":{
-         "CurrentFrequency":0.6666667,
-         "Ticks":2
-      }
+      "GroupName":"General performance",
+      "Instruments":[
+         {
+            "InstrumentID":1,
+            "InstrumentIdent":"Database fetch",
+            "InstrumentType":"InvocationTimer",
+            "ImplementorType":"HomeController",
+            "InstrumentGroup":"General performance",
+            "Measurement":{
+               "Samples":[
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  },
+                  {
+                     "AverageInvokationTimeMs":0,
+                     "MaxInvocationTimeMs":0,
+                     "MinInvocationTimeMs":0
+                  }
+               ],
+               "CurrentFrequency":0,
+               "Ticks":1
+            }
+         },
+         {
+            "InstrumentID":0,
+            "InstrumentIdent":"Index hits",
+            "InstrumentType":"Meter",
+            "ImplementorType":"HomeController",
+            "InstrumentGroup":"General performance",
+            "Measurement":{
+               "CurrentFrequency":0,
+               "Ticks":1
+            }
+         }
+      ]
    },
    {
-      "InstrumentID":1,
-      "InstrumentIdent":"Some timer",
-      "InstrumentType":"InvocationTimer",
-      "Measurement":{
-         "Samples":[
-            {
-               "AverageInvokationTimeMs":299,
-               "MaxInvocationTimeMs":299,
-               "MinInvocationTimeMs":299
-            },
-            {
-               //1 minute worth of 3 second samples
+      "GroupName":"General logging",
+      "Instruments":[
+         {
+            "InstrumentID":2,
+            "InstrumentIdent":"Log output",
+            "InstrumentType":"Logger",
+            "ImplementorType":"HomeController",
+            "InstrumentGroup":"General logging",
+            "Measurement":{
+               "Entries":[
+                  {
+                     "Line":"Index was hit",
+                     "Created":"00:06:03"
+                  }
+               ]
             }
-         ],
-         "CurrentFrequency":0.6666667,
-         "Ticks":2
-      }
-   },
-   {
-      "InstrumentID":2,
-      "InstrumentIdent":"SomeLogger",
-      "InstrumentType":"Logger",
-      "Measurement":{
-         "Entries":[
-            {
-               "Line":"Index was hit",
-               "Created":"2011-09-11T17:04:44.6569257+02:00"
-            },
-            {
-               "Line":"Index was hit",
-               "Created":"2011-09-11T17:04:43.1678405+02:00"
-            }
-            //Last 2 log entres
-         ]
-      }
+         }
+      ]
    }
 ]
 ```

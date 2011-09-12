@@ -1,30 +1,31 @@
-﻿using NWiretap.Instruments.Logger;
-using NWiretap.Instruments.Ticker;
+﻿using System;
+using NWiretap.Instruments.Logger;
+using NWiretap.Instruments.Meter;
 using NWiretap.Instruments.Timer;
 
 namespace NWiretap
 {
     public static class Instrument
     {
-        public static IMeter Ticker(string counterName, int sampleLengthMs)
+        public static IMeter Meter(Type owningType, string groupName, string counterName, int sampleLengthMs)
         {
-            var ticker = new Meter(counterName, sampleLengthMs);
+            var ticker = new Meter(owningType, groupName, counterName, sampleLengthMs);
             InstrumentTracker.TrackInstrument(ticker);
 
             return ticker;
         }
 
-        public static IInvocationTimer Timer(string timerName, int sampleLengthMs)
+        public static IInvocationTimer Timer(Type owningType, string groupName, string timerName, int sampleLengthMs)
         {
-            var timer = new InvocationTimer(timerName, sampleLengthMs);
+            var timer = new InvocationTimer(owningType, groupName, timerName, sampleLengthMs);
             InstrumentTracker.TrackInstrument(timer);
 
             return timer;
         }
 
-        public static ILogger Logger(string loggerName, int logSize)
+        public static ILogger Logger(Type owningType, string groupName, string loggerName, int logSize)
         {
-            var logger = new Logger(loggerName, logSize);
+            var logger = new Logger(owningType, groupName, loggerName, logSize);
             InstrumentTracker.TrackInstrument(logger);
 
             return logger;

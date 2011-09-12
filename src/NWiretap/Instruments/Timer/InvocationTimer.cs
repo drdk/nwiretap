@@ -4,17 +4,16 @@ using System.Diagnostics;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
-using NWiretap.Instruments.Ticker;
-using NWiretap.Measurement;
+using NWiretap.Instruments.Meter;
 
 namespace NWiretap.Instruments.Timer
 {
-    public class InvocationTimer : Meter, IInvocationTimer
+    public class InvocationTimer : Meter.Meter, IInvocationTimer
     {
         private List<int> _invocationTimes = new List<int>();
         private readonly List<TimerSample> _samples = new List<TimerSample>();
 
-        public InvocationTimer(string instrumentIdent, int sampleLengthMs) : base(instrumentIdent, sampleLengthMs)
+        public InvocationTimer(Type owningType, string groupName, string instrumentIdent, int sampleLengthMs) : base(owningType, groupName, instrumentIdent, sampleLengthMs)
         {
         }
 
@@ -52,6 +51,22 @@ namespace NWiretap.Instruments.Timer
             {
                 sw.Start();
                 return func();
+            }
+            finally
+            {
+                sw.Stop();
+                _invocationTimes.Add((int)sw.ElapsedMilliseconds);
+                Tick();
+            }
+        }
+
+        public void Time(Action act)
+        {
+            var sw = new Stopwatch();
+            try
+            {
+                sw.Start();
+                act();
             }
             finally
             {

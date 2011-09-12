@@ -1,4 +1,4 @@
-﻿namespace NWiretap.Instruments.Ticker
+﻿namespace NWiretap.Instruments.Meter
 {
     public interface IMeter
     {

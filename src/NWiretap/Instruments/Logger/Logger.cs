@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NWiretap.Measurement;
 
 namespace NWiretap.Instruments.Logger
 {
@@ -11,7 +10,7 @@ namespace NWiretap.Instruments.Logger
         public int LogSize { get; private set; }
         private readonly List<LogEntry> _entries = new List<LogEntry>();
 
-        public Logger(string instrumentName, int logSize) : base(instrumentName)
+        public Logger(Type owningType, string groupName, string instrumentName, int logSize) : base(owningType, groupName, instrumentName)
         {
             LogSize = logSize;
         }
@@ -42,7 +41,7 @@ namespace NWiretap.Instruments.Logger
         private DateTime _created = DateTime.Now;
         public string Created
         {
-            get { return _created.ToString("o"); }
+            get { return _created.ToString("HH:mm:ss"); }
         }
 
         public string Line;
