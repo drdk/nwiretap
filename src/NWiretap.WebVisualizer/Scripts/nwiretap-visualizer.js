@@ -1,20 +1,22 @@
 ﻿$().ready(function () {
     var servers = [
         {
-            name: "Server 1",
-            url: "/nwiretap"
+            name: "VALGOL 10",
+            url: "http://172.18.64.120/nyheder/valgol/nwiretap"
         },
         {
-            name: "Server 2",
-            url: "/nwiretap"
-        },
+            name: "VALGOL 11",
+            url: "http://172.18.64.121/nyheder/valgol/nwiretap"
+        }
+        ,
         {
-            name: "Server 3",
-            url: "/nwiretap"
-        },
+            name: "VALGOL 12",
+            url: "http://172.18.64.122/nyheder/valgol/nwiretap"
+        }
+        ,
         {
-            name: "Server 4",
-            url: "/nwiretap"
+            name: "VALGOL 13",
+            url: "http://172.18.64.123/nyheder/valgol/nwiretap"
         }
     ];
 
@@ -35,23 +37,23 @@ function getData(servers) {
                 dataSets.push({
                     name: value.name,
                     serverIndex: index,
-                    data: data
+                    data: eval(data)
                 });
-
-                setTimeout(function () {
-                    var ds = getData(servers);
-                    updateData(ds);
-                }, 3000);
             }
         });
     });
 
+    setTimeout(function () {
+        var ds = getData(servers);
+        updateData(ds);
+    }, 3000);
+    
     return dataSets;
 }
 
 function initialize(dataSets) {
-    $.each(dataSets, function (index, value) {
-        $("#template-server").tmpl(value).appendTo("#main-content");
+    $.each(dataSets, function (index, val) {
+        $("#template-server").tmpl(val).appendTo("#main-content");
     });
 }
 
@@ -81,11 +83,17 @@ function updateInvocationTimer(instrumentDomId, data) {
     updateMeter(instrumentDomId, data);
 
     //Update dat graph.
-    var graph = $(instrumentDomId + " .graph")[0];
-    if (!graph.isInitialized) {
-        
-    }
-    else {
-        //Update the data
-    }
+    var graphDom = $(instrumentDomId + " .graph")[0];
+    $(graphDom).empty();
+    var r = new Raphael(graphDom);
+    
+    var yPlots = [];
+    var xPlots = [];
+
+    $.each(data.Measurement.Samples, function (index, sample) {
+        yPlots.push(sample.AverageInvokationTimeMs);
+        xPlots.push(index);
+    });
+
+    r.g.linechart(20, 0, 230, 75, xPlots, yPlots, { axis: "0 0 1 1", smooth: true, shade: true });
 }

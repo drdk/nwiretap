@@ -30,7 +30,6 @@ namespace NWiretap.WebVisualizer.Controllers
 
         public IEnumerable<string> GetStrings()
         {
-            Thread.Sleep(300);
             return null;
         }
     }
