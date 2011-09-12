@@ -13,7 +13,7 @@ public class HomeController : Controller
     public ActionResult Index()
     {
         Meter.Tick();
-        var s = Timer.Time(() => GetStrings());
+        var s = Timer.Time(() => Database.GetSomeStuff());
 
         Logger.Log("Index was hit");
         return View();
