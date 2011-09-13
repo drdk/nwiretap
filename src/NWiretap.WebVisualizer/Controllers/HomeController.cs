@@ -26,7 +26,7 @@ namespace NWiretap.WebVisualizer.Controllers
 
             var servers = id.Replace("\r", "").Split("\r\n".ToCharArray());
             var serverList = new List<object>();
-            foreach (var split in servers.Select(server => server.Split(":".ToCharArray())))
+            foreach (var split in servers.Select(server => server.Split("=".ToCharArray())))
             {
                 serverList.Add(new
                                    {
