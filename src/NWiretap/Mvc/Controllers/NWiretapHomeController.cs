@@ -25,7 +25,7 @@ namespace NWiretap.Mvc.Controllers
                                                                                         Measurement = a.Instrument.GetMeasurement()
                                                                                     });
 
-            return Json(instruments.GroupBy(a => a.InstrumentGroup).Select(a => new { GroupName = a.Key, Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent) }), JsonRequestBehavior.AllowGet);
+            return Json(instruments.GroupBy(a => a.InstrumentGroup).Select(a => new { GroupName = a.Key, Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent) }).OrderBy(a => a.GroupName), JsonRequestBehavior.AllowGet);
         }
     }
 
