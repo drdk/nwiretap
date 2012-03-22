@@ -7,6 +7,7 @@ using System.Text;
 
 namespace NWiretap
 {
+    // Copied from: http://www.deanchalk.me.uk/post/Task-Parallel-Concurrent-List-Implementation.aspx
     public class ConcurrentList<T> : IList<T>, IList
     {
         private readonly List<T> underlyingList = new List<T>();
