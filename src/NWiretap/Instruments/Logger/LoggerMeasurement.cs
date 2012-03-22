@@ -7,9 +7,9 @@ namespace NWiretap.Instruments.Logger
 {
     public class LoggerMeasurement : InstrumentMeasurementBase 
     {
-        public List<LogEntry> Entries { get; private set; }
+        public ConcurrentList<LogEntry> Entries { get; private set; }
 
-        public LoggerMeasurement(List<LogEntry> entries)
+        public LoggerMeasurement(ConcurrentList<LogEntry> entries)
         {
             Entries = entries;
         }

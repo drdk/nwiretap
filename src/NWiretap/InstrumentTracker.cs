@@ -6,7 +6,7 @@ namespace NWiretap
 {
     internal static class InstrumentTracker
     {
-        public static IList<TrackedInstrument> Instruments = new List<TrackedInstrument>();
+        public static IList<TrackedInstrument> Instruments = new ConcurrentList<TrackedInstrument>();
 
         public static void TrackInstrument(IInstrument instrument)
         {

@@ -10,8 +10,8 @@ namespace NWiretap.Instruments.Timer
 {
     public class InvocationTimer : Meter.Meter, IInvocationTimer
     {
-        private List<int> _invocationTimes = new List<int>();
-        private readonly List<TimerSample> _samples = new List<TimerSample>();
+        private ConcurrentList<int> _invocationTimes = new ConcurrentList<int>();
+        private readonly ConcurrentList<TimerSample> _samples = new ConcurrentList<TimerSample>();
 
         public InvocationTimer(Type owningType, string groupName, string instrumentIdent, int sampleLengthMs) : base(owningType, groupName, instrumentIdent, sampleLengthMs)
         {
@@ -22,7 +22,7 @@ namespace NWiretap.Instruments.Timer
             base.CalculateValues();
 
             var invc = new List<int>(_invocationTimes);
-            _invocationTimes = new List<int>();
+            _invocationTimes = new ConcurrentList<int>();
             
             var sample = invc.Count <= 0 ? new TimerSample() : new TimerSample
                                                                  {

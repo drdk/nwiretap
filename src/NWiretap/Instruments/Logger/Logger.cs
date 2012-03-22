@@ -8,7 +8,7 @@ namespace NWiretap.Instruments.Logger
     public class Logger : InstrumentBase, ILogger
     {
         public int LogSize { get; private set; }
-        private readonly List<LogEntry> _entries = new List<LogEntry>();
+        private readonly ConcurrentList<LogEntry> _entries = new ConcurrentList<LogEntry>();
 
         public Logger(Type owningType, string groupName, string instrumentName, int logSize) : base(owningType, groupName, instrumentName)
         {
