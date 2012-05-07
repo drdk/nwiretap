@@ -23,7 +23,7 @@ namespace NWiretap.Mvc.Controllers
                                                                                         ImplementorType = a.Instrument.OwningType.Name,
                                                                                         InstrumentGroup = a.Instrument.InstrumentGroup,
                                                                                         Measurement = a.Instrument.GetMeasurement()
-                                                                                    });
+                                                                                    }).ToList();
 
             return Json(instruments.GroupBy(a => a.InstrumentGroup).Select(a => new { GroupName = a.Key, Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent) }).OrderBy(a => a.GroupName), JsonRequestBehavior.AllowGet);
         }
