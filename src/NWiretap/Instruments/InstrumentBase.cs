@@ -4,6 +4,8 @@ namespace NWiretap.Instruments
 {
     public abstract class InstrumentBase : IInstrument
     {
+        protected object SyncRoot = new object();
+
         private readonly string _instrumentIdent, _instrumentGroup;
         private readonly Type _owningType;
 

@@ -10,8 +10,8 @@ namespace NWiretap.Instruments.Timer
 {
     public class InvocationTimer : Meter.Meter, IInvocationTimer
     {
-        private ConcurrentList<int> _invocationTimes = new ConcurrentList<int>();
-        private readonly ConcurrentList<TimerSample> _samples = new ConcurrentList<TimerSample>();
+        private IList<int> _invocationTimes = new List<int>();
+        private readonly IList<TimerSample> _samples = new List<TimerSample>();
 
         public InvocationTimer(Type owningType, string groupName, string instrumentIdent, int sampleLengthMs) : base(owningType, groupName, instrumentIdent, sampleLengthMs)
         {
@@ -21,16 +21,19 @@ namespace NWiretap.Instruments.Timer
         {
             base.CalculateValues();
 
-            var invc = new List<int>(_invocationTimes);
-            _invocationTimes = new ConcurrentList<int>();
-            
-            var sample = invc.Count <= 0 ? new TimerSample() : new TimerSample
-                                                                 {
-                                                                     AverageInvokationTimeMs = invc.Average(),
-                                                                     MaxInvocationTimeMs = invc.Max(),
-                                                                     MinInvocationTimeMs = invc.Min()
-                                                                 };
-            PushSample(sample);
+            lock(SyncRoot)
+            {
+                var invc = new List<int>(_invocationTimes);
+                _invocationTimes = new List<int>();
+
+                var sample = invc.Count <= 0 ? new TimerSample() : new TimerSample
+                {
+                    AverageInvokationTimeMs = invc.Average(),
+                    MaxInvocationTimeMs = invc.Max(),
+                    MinInvocationTimeMs = invc.Min()
+                };
+                PushSample(sample);
+            }
         }
 
         public override string InstrumentType
@@ -55,7 +58,11 @@ namespace NWiretap.Instruments.Timer
             finally
             {
                 sw.Stop();
-                _invocationTimes.Add((int)sw.ElapsedMilliseconds);
+                lock(SyncRoot)
+                {
+                    _invocationTimes.Add((int)sw.ElapsedMilliseconds);
+                }
+
                 Tick();
             }
         }
@@ -71,19 +78,26 @@ namespace NWiretap.Instruments.Timer
             finally
             {
                 sw.Stop();
-                _invocationTimes.Add((int)sw.ElapsedMilliseconds);
+                lock(SyncRoot)
+                {
+                    _invocationTimes.Add((int)sw.ElapsedMilliseconds);
+                }
+                
                 Tick();
             }
         }
 
         private void PushSample(TimerSample timerSample)
         {
-            if (_samples.Count >= ((1000*60)/SampleLengthMs))
+            lock (SyncRoot)
             {
-                _samples.RemoveAt(_samples.Count-1);
-            }
+                if (_samples.Count >= ((1000 * 60) / SampleLengthMs))
+                {
+                    _samples.RemoveAt(_samples.Count - 1);
+                }
 
-            _samples.Insert(0, timerSample);
+                _samples.Insert(0, timerSample); 
+            }
         }
     }
 }

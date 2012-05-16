@@ -7,8 +7,10 @@ namespace NWiretap.Instruments.Logger
 {
     public class Logger : InstrumentBase, ILogger
     {
+        
+
         public int LogSize { get; private set; }
-        private readonly ConcurrentList<LogEntry> _entries = new ConcurrentList<LogEntry>();
+        private readonly IList<LogEntry> _entries = new List<LogEntry>();
 
         public Logger(Type owningType, string groupName, string instrumentName, int logSize) : base(owningType, groupName, instrumentName)
         {
@@ -27,12 +29,15 @@ namespace NWiretap.Instruments.Logger
 
         public void Log(string message)
         {
-            if(_entries.Count >= LogSize)
+            lock (SyncRoot)
             {
-                _entries.RemoveAt(_entries.Count-1);
-            }
+                if (_entries.Count >= LogSize)
+                {
+                    _entries.RemoveAt(_entries.Count - 1);
+                }
 
-            _entries.Insert(0, new LogEntry(message));
+                _entries.Insert(0, new LogEntry(message));
+            }
         }
     }
 

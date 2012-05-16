@@ -6,17 +6,25 @@ namespace NWiretap
 {
     internal static class InstrumentTracker
     {
-        public static IList<TrackedInstrument> Instruments = new ConcurrentList<TrackedInstrument>();
+        public static IList<TrackedInstrument> Instruments = new List<TrackedInstrument>();
+        public static object SyncRoot = new object();
 
         public static void TrackInstrument(IInstrument instrument)
         {
-            Instruments.Add(new TrackedInstrument(instrument));
+            lock(SyncRoot)
+            {
+                Instruments.Add(new TrackedInstrument(instrument));
+            }
+            
         }
 
         public static void RemoveInstrument(IInstrument instrument)
         {
-            var trackedInstrument = Instruments.Single(a => a.Instrument == instrument);
-            Instruments.Remove(trackedInstrument);
+            lock(SyncRoot)
+            {
+                var trackedInstrument = Instruments.Single(a => a.Instrument == instrument);
+                Instruments.Remove(trackedInstrument);
+            }
         }
     }
 

@@ -15,22 +15,26 @@ namespace NWiretap.Mvc.Controllers
         [OutputCache(Location = OutputCacheLocation.None)]
         public ActionResult Index()
         {
-            var instruments = InstrumentTracker.Instruments.Select(a => new Model.Instrument
-                                                                                    {
-                                                                                        InstrumentID = a.InstrumentID,
-                                                                                        InstrumentIdent = a.Instrument.InstrumentIdent,
-                                                                                        InstrumentType = a.Instrument.InstrumentType,
-                                                                                        ImplementorType = a.Instrument.OwningType.Name,
-                                                                                        InstrumentGroup = a.Instrument.InstrumentGroup,
-                                                                                        Measurement = a.Instrument.GetMeasurement()
-                                                                                    }).ToArray();
+            lock(InstrumentTracker.Instruments)
+            {
+                var instruments = InstrumentTracker.Instruments.Select(a => new Model.Instrument
+                {
+                    InstrumentID = a.InstrumentID,
+                    InstrumentIdent = a.Instrument.InstrumentIdent,
+                    InstrumentType = a.Instrument.InstrumentType,
+                    ImplementorType = a.Instrument.OwningType.Name,
+                    InstrumentGroup = a.Instrument.InstrumentGroup,
+                    Measurement = a.Instrument.GetMeasurement()
+                }).ToArray();
 
-            return Json(instruments.GroupBy(a => a.InstrumentGroup)
-                .Select(a => new { 
-                    GroupName = a.Key, 
-                    Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent).ToArray() 
-                }).OrderBy(a => a.GroupName).ToArray(),
-                JsonRequestBehavior.AllowGet);
+                return Json(instruments.GroupBy(a => a.InstrumentGroup)
+                    .Select(a => new
+                    {
+                        GroupName = a.Key,
+                        Instruments = a.OrderBy(b => b.ImplementorType).ThenBy(b => b.InstrumentIdent).ToArray()
+                    }).OrderBy(a => a.GroupName).ToArray(),
+                    JsonRequestBehavior.AllowGet);
+            }
         }
     }
 
